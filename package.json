@@ -1,0 +1,37 @@
+{
+  "name": "robust-orientation",
+  "version": "0.0.0",
+  "description": "Exactly computes the orientation of a tuple of points",
+  "main": "orientation.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "robust-scale": "~0.0.3",
+    "robust-sum": "~0.0.2",
+    "two-product": "~0.0.0"
+  },
+  "devDependencies": {
+    "tape": "~2.0.0",
+    "tap": "~0.4.4"
+  },
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikolalysenko/robust-orientation.git"
+  },
+  "keywords": [
+    "robust",
+    "orientation",
+    "point",
+    "predicate",
+    "geometry"
+  ],
+  "author": "Mikola Lysenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikolalysenko/robust-orientation/issues"
+  }
+}
