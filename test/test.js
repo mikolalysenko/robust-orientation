@@ -39,6 +39,11 @@ require("tape")(function(t) {
         [0, -1],
         [x, 0]
       ]), -1)
+   t.equals(orientation([
+      [0, 1],
+      [0, 0],
+      [x, x]
+    ]), -1)
     x *= 10
   }
   t.end()
