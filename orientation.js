@@ -51,13 +51,13 @@ function generateSum(expr) {
 
 function determinant(m) {
   if(m.length === 2) {
-    return ["sum(prod(", m[0][0], ",", m[1][1], "),prod(-", m[0][1], ",", m[1][0], "))"].join("")
+    return [["sum(prod(", m[0][0], ",", m[1][1], "),prod(-", m[0][1], ",", m[1][0], "))"].join("")]
   } else {
     var expr = []
     for(var i=0; i<m.length; ++i) {
-      expr.push(["scale(", determinant(cofactor(m, i)), ",", sign(i), m[0][i], ")"].join(""))
+      expr.push(["scale(", generateSum(determinant(cofactor(m, i))), ",", sign(i), m[0][i], ")"].join(""))
     }
-    return generateSum(expr)
+    return expr
   }
 }
 
@@ -67,9 +67,9 @@ function orientation(n) {
   var m = matrix(n)
   for(var i=0; i<n; ++i) {
     if((i&1)===0) {
-      pos.push(determinant(cofactor(m, i)))
+      pos.push.apply(pos, determinant(cofactor(m, i)))
     } else {
-      neg.push(determinant(cofactor(m, i)))
+      neg.push.apply(neg, determinant(cofactor(m, i)))
     }
   }
   var posExpr = generateSum(pos)
