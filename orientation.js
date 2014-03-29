@@ -3,6 +3,7 @@
 var twoProduct = require("two-product")
 var robustSum = require("robust-sum")
 var robustScale = require("robust-scale")
+var robustSubtract = require("robust-subtract")
 
 var EPSILON     = 1.1102230246251565e-16
 var ERRBOUND3   = (3.0 + 16.0 * EPSILON) * EPSILON
@@ -81,14 +82,10 @@ function orientation(n) {
   var posExpr = generateSum(pos)
   var negExpr = generateSum(neg)
   var funcName = "orientation" + n + "Exact"
-  var code = ["function ", funcName, "(", args.join(), "){var p=", posExpr, ",n=", negExpr, ";\
-for(var i=p.length-1,j=n.length-1;i>=0&&j>=0;--i,--j){\
-var d=p[i]-n[j];if(d){return d}}\
-if(i>=0){return p[i]}\
-if(j>=0){return -n[j]}\
-return 0.0};return ", funcName].join("")
-  var proc = new Function("sum", "prod", "scale", code)
-  return proc(robustSum, twoProduct, robustScale)
+  var code = ["function ", funcName, "(", args.join(), "){var p=", posExpr, ",n=", negExpr, ",d=sub(p,n);\
+return d[d.length-1];};return ", funcName].join("")
+  var proc = new Function("sum", "prod", "scale", "sub", code)
+  return proc(robustSum, twoProduct, robustScale, robustSubtract)
 }
 
 var orientation3Exact = orientation(3)

@@ -5,6 +5,12 @@ var orientation = require("../orientation.js")
 
 tape("2d orientation", function(t) {
 
+  t.equals(orientation(
+    [0.1, 0.1],
+    [0.1, 0.1],
+    [0.3, 0.7]
+    ), 0)
+
   t.ok(orientation(
       [0,0],
       [-1e-64,0],
