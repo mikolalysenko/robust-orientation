@@ -7,9 +7,9 @@
     "test": "test"
   },
   "dependencies": {
-    "robust-scale": "^1.0.0",
+    "robust-scale": "^1.0.2",
     "robust-sum": "^1.0.0",
-    "two-product": "^1.0.0",
+    "two-product": "^1.0.2",
     "robust-subtract": "^1.0.0"
   },
   "devDependencies": {
