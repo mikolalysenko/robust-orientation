@@ -5,11 +5,11 @@ var robustSum = require("robust-sum")
 var robustScale = require("robust-scale")
 var robustSubtract = require("robust-subtract")
 
+var NUM_EXPAND = 5
+
 var EPSILON     = 1.1102230246251565e-16
 var ERRBOUND3   = (3.0 + 16.0 * EPSILON) * EPSILON
 var ERRBOUND4   = (7.0 + 56.0 * EPSILON) * EPSILON
-
-module.exports = getOrientation
 
 function cofactor(m, c) {
   var result = new Array(m.length-1)
@@ -155,23 +155,40 @@ var CACHED = [
   }
 ]
 
-var O2 = CACHED[2]
-var O3 = CACHED[3]
-var O4 = CACHED[4]
+function slowOrient(args) {
+  var proc = CACHED[args.length]
+  if(!proc) {
+    proc = CACHED[args.length] = orientation(args.length)
+  }
+  return proc.apply(undefined, args)
+}
 
-function getOrientation(a, b, c, d) {
-  var n = arguments.length
-  switch(n) {
-    case 0:
-    case 1:   return 0
-    case 2:   return O2(a,b)
-    case 3:   return O3(a,b,c)
-    case 4:   return O4(a,b,c,d)
-    default:
-      while(CACHED.length <= n) {
-        CACHED.push(orientation(CACHED.length))
-      }
-      var p = CACHED[m.length]
-      return p.apply(undefined, arguments)
+function generateOrientationProc() {
+  while(CACHED.length < NUM_EXPAND) {
+    CACHED.push(orientation(CACHED.length))
+  }
+  var args = []
+  var procArgs = ["slow"]
+  for(var i=0; i<NUM_EXPAND; ++i) {
+    args.push("a" + i)
+    procArgs.push("o" + i)
+  }
+  var code = [
+    "function getOrientation(", args.join(), "){switch(arguments.length){case 0:case 1:return 0;"
+  ]
+  for(var i=2; i<=NUM_EXPAND; ++i) {
+    code.push("case ", i, ":return o", i, "(", args.slice(0, i).join(), ");")
+  }
+  code.push("}var s=new Array(arguments.length);for(var i=0;i<arguments.length;++i){s[i]=arguments[i]};return slow(s);}return getOrientation")
+  procArgs.push(code.join(""))
+
+  console.log(code.join(""))
+
+  var proc = Function.apply(undefined, procArgs)
+  module.exports = proc.apply(undefined, [slowOrient].concat(CACHED))
+  for(var i=0; i<=NUM_EXPAND; ++i) {
+    module.exports[i] = CACHED[i]
   }
 }
+
+generateOrientationProc()
