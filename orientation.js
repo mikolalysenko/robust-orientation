@@ -182,8 +182,6 @@ function generateOrientationProc() {
   code.push("}var s=new Array(arguments.length);for(var i=0;i<arguments.length;++i){s[i]=arguments[i]};return slow(s);}return getOrientation")
   procArgs.push(code.join(""))
 
-  console.log(code.join(""))
-
   var proc = Function.apply(undefined, procArgs)
   module.exports = proc.apply(undefined, [slowOrient].concat(CACHED))
   for(var i=0; i<=NUM_EXPAND; ++i) {
