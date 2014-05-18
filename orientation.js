@@ -164,12 +164,12 @@ function slowOrient(args) {
 }
 
 function generateOrientationProc() {
-  while(CACHED.length < NUM_EXPAND) {
+  while(CACHED.length <= NUM_EXPAND) {
     CACHED.push(orientation(CACHED.length))
   }
   var args = []
   var procArgs = ["slow"]
-  for(var i=0; i<NUM_EXPAND; ++i) {
+  for(var i=0; i<=NUM_EXPAND; ++i) {
     args.push("a" + i)
     procArgs.push("o" + i)
   }

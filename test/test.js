@@ -82,3 +82,30 @@ tape("3d orientation", function(t) {
 
   t.end()
 })
+
+tape("4d orientation", function(t) {
+
+  t.ok(orientation(
+    [0,0,0,0],
+    [1,0,0,0],
+    [0,1,0,0],
+    [0,0,1,0],
+    [0,0,0,1]
+  ) > 0)
+
+  t.end()
+})
+
+tape("5d orientation", function(t) {
+
+  t.ok(orientation(
+    [0,0,0,0,0],
+    [1,0,0,0,0],
+    [0,1,0,0,0],
+    [0,0,1,0,0],
+    [0,0,0,1,0],
+    [0,0,0,0,1]
+  ) > 0)
+
+  t.end()
+})
