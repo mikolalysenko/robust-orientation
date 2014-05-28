@@ -6,6 +6,10 @@ Robust orientation test for n-simplices.  Based on the work of Jonathan Shewchuk
 
 This implementation is robust in the sense that the answers returned are exact, but it is not fully adaptive.  Basically an initial test is computed, and if the accuracy of this is too low then an exact version of the test is executed.  Compared to Shewchuk's original C code this is slower, but eventually I hope to make improvements that bring the performance closer in line to his version.
 
+[![testling badge](https://ci.testling.com/mikolalysenko/robust-orientation.png)](https://ci.testling.com/mikolalysenko/robust-orientation)
+
+[![build status](https://secure.travis-ci.org/mikolalysenko/robust-orientation.png)](http://travis-ci.org/mikolalysenko/robust-orientation)
+
 # Example
 
 ```javascript
