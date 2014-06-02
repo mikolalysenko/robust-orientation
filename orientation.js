@@ -95,9 +95,7 @@ var CACHED = [
   function orientation0() { return 0 },
   function orientation1() { return 0 },
   function orientation2(a, b) { 
-    if(a[0] < b[0]) { return -1 }
-    if(a[0] > b[0]) { return 1 }
-    return 0
+    return b[0] - a[0]
   },
   function orientation3(a, b, c) {
     var l = (a[1] - c[1]) * (b[0] - c[0])
