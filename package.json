@@ -1,6 +1,6 @@
 {
   "name": "robust-orientation",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Exactly computes the orientation of a tuple of points",
   "main": "orientation.js",
   "directories": {
